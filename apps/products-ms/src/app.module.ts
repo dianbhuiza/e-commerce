@@ -11,7 +11,5 @@ import { envSchema } from './config/env';
       validationSchema: envSchema,
     })
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
