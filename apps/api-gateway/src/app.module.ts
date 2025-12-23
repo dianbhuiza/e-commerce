@@ -8,7 +8,14 @@ import { ProductsModule } from './modules/products/products.module';
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '../.env',
-      validationSchema: envSchema
+      validate: (config) => {
+        const parsed = envSchema.safeParse(config);
+        if (!parsed.success) {
+          console.error(parsed.error.message[0]);
+          throw new Error('Invalid configuration');
+        }
+        return parsed.data;
+      },
     }),
     ProductsModule,
   ],
